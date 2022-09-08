@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>checklister</ion-title>
+    <ion-button
+      slot="primary"
+      fill="clear"
+      color="light"
+      [routerLink]="['/add']"
+    >
+      <ng-container *ngIf="checklists; else shockwaveBtn">
+        <ion-icon name="add-outline"></ion-icon>
+      </ng-container>
+      <ng-template #shockwaveBtn
+        ><ion-icon class="emptyListAddBtn" name="add-outline"></ion-icon
+      ></ng-template>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="checklists?.length > 0; else emptyList">
+    <ng-container *ngFor="let checklist of checklists; let i = index">
+      <a [routerLink]="['/detail/', i]">
+        <ion-list-header>{{checklist.title}}</ion-list-header>
+      </a>
+      <ion-list *ngFor="let item of checklist.items">
+        <ion-item>
+          <ion-input value="{{item}}" disabled></ion-input>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyList>
+    <ion-list-header>creating a new checklist</ion-list-header>
+    <ion-list>
+      <ion-item>
+        <ion-input disabled>click on the + button</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input disabled>insert a title</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input disabled>add many steps as you wish</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input disabled>click on the checkmark button to create</ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list-header>updating a checklist</ion-list-header>
+    <ion-list>
+      <ion-item>
+        <ion-input disabled>click on the checklist title</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input disabled>update the title</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input disabled>add many new steps as you wish</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input disabled>click on the checkmark button to save</ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list-header>removing a checklist</ion-list-header>
+    <ion-list>
+      <ion-item>
+        <ion-input disabled>click on the checklist title</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input disabled>click on the trash can button</ion-input>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</ion-content>

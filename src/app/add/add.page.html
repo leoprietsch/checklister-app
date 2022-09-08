@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button
+        slot="secondary"
+        fill="clear"
+        color="light"
+        [routerLink]="['']"
+        routerDirection="back"
+      >
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      <ion-input
+        type="text"
+        autocapitalize="off"
+        autofocus
+        required
+        class="input-title"
+        placeholder="title*"
+        [value]="checklist.title"
+        (change)="updateTitle($event.target)"
+      ></ion-input>
+    </ion-title>
+
+    <ion-button
+      slot="primary"
+      fill="clear"
+      color="light"
+      routerDirection="back"
+      (click)="addChecklist()"
+    >
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ng-container *ngFor="let item of checklist.items; let i = index">
+      <ion-item>
+        <ion-input
+          type="text"
+          autocapitalize="off"
+          (keydown.enter)="updateItem(i, $event.target)"
+          (ionBlur)="updateItem(i, $event.target)"
+          value="{{item}}"
+        ></ion-input>
+      </ion-item>
+    </ng-container>
+    <ion-item>
+      <ion-input
+        type="text"
+        autocapitalize="off"
+        [(ngModel)]="newItem"
+        enterkeyhint="done"
+        placeholder="+ add item"
+        (keydown.enter)="addItem()"
+        (ionBlur)="addItem()"
+      ></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
